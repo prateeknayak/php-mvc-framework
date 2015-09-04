@@ -8,9 +8,9 @@ namespace Lp\Framework\Core;
  * Date: 19/08/15
  * Time: 7:28 PM
  */
-use Lp\Framework\Core\Router as router;
+use Lp\Framework\Core\Router;
 
-class lp
+class Optimus
 {
     public function __construct()
     {
@@ -19,6 +19,7 @@ class lp
 
     public function letsRoll()
     {
-        $caArray = router::get("/");
+        $whereToGo = Router::reduce();
+        var_dump(Router::reduce());
     }
 }

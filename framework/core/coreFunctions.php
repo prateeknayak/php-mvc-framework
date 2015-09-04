@@ -11,5 +11,23 @@ namespace Lp\Framework\Core;
 
 class coreFunctions
 {
+    private function __construct() {}
+    private function __clone() {}
 
+    public static function purify($dirty)
+    {
+        $search =   array(
+            '@<script[^>]*?>.*?</script>@si',
+            '@<[\/\!]*?[^<>]*?>@si',
+            '@<style[^>]*?>.*?</style>@siU',
+            '@<![\s\S]*?--[ \t\n\r]*>@'
+        );
+
+        return preg_replace($search, '', $dirty);
+    }
+
+    public static function dump_it_out($var)
+    {
+        xdebug_var_dump($var);
+    }
 }

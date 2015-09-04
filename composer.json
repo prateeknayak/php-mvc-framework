@@ -1,15 +1,13 @@
 {
-    "name": "looclpicks/lp",
-    "description": "Dependecy manager for looclpicks backend.",
+    "name": "foookat/lp",
+    "description": "Dependecy manager for Foookat backend.",
     "config": {
-        "vendor-dir": "framework/vendor"
+        "vendor-dir": "vendor"
     },
     "require":{
         "respect/validation": "0.6.1",
-        "phpmailer/phpmailer": "dev-master"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "4.8.*"
+        "phpmailer/phpmailer": "dev-master",
+        "monolog/monolog": "^1.16@dev"
     },
     "authors": [
         {

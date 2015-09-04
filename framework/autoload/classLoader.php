@@ -63,24 +63,12 @@ class ClassLoader
         $fileNameArrayLC[0] = str_replace($this->_devDirRoot, ENVIRONMENT_DIR, $fileNameArrayLC[0]);
         $fileName = implode("/", $fileNameArrayLC);
         $name = $path."/".$fileName;
+
         if (file_exists($name)) {
             require_once($name);
         } else {
-            $this->fallbackLoaderForControllers($name);
+            throw new \Exception("File Not found");
         }
-    }
-
-    private function fallbackLoaderForControllers($name) 
-    {   
-        $controllerName =  str_replace(".php", "Controller.php",$name);
-        if(file_exists($controllerName)) {
-            require_once($controllerName);
-            return true;
-        } else {
-            throw new Exception("Internal Server Error", 500);
-        }
-        
-        
     }
      /**
      * Sets the namespace separator used by classes in the namespace of this class loader.

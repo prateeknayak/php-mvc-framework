@@ -2,15 +2,13 @@
 
 namespace Lp\Framework\Core;
 use Lp\Framework\Exceptions\EmptyInputArrayException;
-
+use Lp\Framework\Core\CoreFunctions as CF;
 /**
  * Created by PhpStorm.
  * User: prateek
  * Date: 19/08/15
  * Time: 7:33 PM
  */
-
-
 
 class Request
 {
@@ -21,7 +19,7 @@ class Request
 
     public static function get($key = null)
     {
-         if (count(self::$inputArray)< 1) {
+        if (count(self::$inputArray)< 1) {
             throw new EmptyInputArrayException("The global arrays are empty please verify");
         } elseif (is_null($key) || $key === "") {
             return self::$inputArray;
@@ -32,20 +30,11 @@ class Request
     public static function cleanTheGlobals()
     {
         $filterGlobal = function($filter = INPUT_GET) {
-            $purify = function($dirty) {
-                $search =   array(
-                    '@<script[^>]*?>.*?</script>@si',
-                    '@<[\/\!]*?[^<>]*?>@si',
-                    '@<style[^>]*?>.*?</style>@siU',
-                    '@<![\s\S]*?--[ \t\n\r]*>@'
-                );
-
-                $clean = preg_replace($search, '', $dirty);
-                return $clean;
-            };
             $global = filter_input_array($filter, FILTER_SANITIZE_STRING);
-            foreach ($global as $key => $value) {
-                self::$inputArray[$purify($key)] = $purify($value);
+            if (count($global) > 0) {
+                foreach ($global as $key => $value) {
+                    self::$inputArray[cf::purify($key)] = cf::purify($value);
+                }
             }
         };
 
@@ -69,4 +58,13 @@ class Request
     //    self::$dirtyInput = json_decode(file_get_contents('php://input'),TRUE);
     // } 
 
+        public static function whereYouWantToGo()
+        {
+            return cf::purify($_SERVER['REQUEST_URI']);
+        }
+
+        public static function howYouWantToGo()
+        {
+            return $_SERVER['REQUEST_METHOD'];
+        }
     }

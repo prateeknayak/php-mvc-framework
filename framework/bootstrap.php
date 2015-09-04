@@ -25,9 +25,10 @@ if (is_null($env) ||false == $env){
     $envDir ='lp';
 }
 define("ENVIRONMENT_DIR",$envDir);
-include $basePath."framework/vendor/autoload.php";
+include $basePath."vendor/autoload.php";
 include $basePath."framework/autoload/classLoader.php";
 
 (new ClassLoader($basePath))->register();
 Lp\Framework\Core\Request::cleanTheGlobals();
-(new Lp\Framework\Core\lp())->letsRoll();
+include $basePath."application/routes/routes.php";
+(new Lp\Framework\Core\Optimus())->letsRoll();
