@@ -43,5 +43,10 @@ dwsync.xml
 .idea/
 _dev_*
 
-framework/vendor/
+#####################
+# Folders to ignore #
+#####################
+
+tests/target/
+vendor/
 composer.lock
