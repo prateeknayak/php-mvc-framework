@@ -9,7 +9,7 @@
 namespace Lp\Framework\Core;
 
 
-class coreFunctions
+class coreUtils
 {
     private function __construct() {}
     private function __clone() {}

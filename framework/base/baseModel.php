@@ -9,7 +9,10 @@
 namespace Lp\Framework\Base;
 
 
-class baseModel
+abstract class BaseModel
 {
-
+    public function init($params = array())
+    {
+        // implemented by child class
+    }
 }

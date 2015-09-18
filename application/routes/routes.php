@@ -1,5 +1,9 @@
 <?php
-use Lp\Framework\Core\Router as Router;
+use Lp\Framework\Core\Request\Router as Router;
 
-Router::map("GET", "/lp","indexController","index");
-Router::map("GET","/lp/store/{id}/","indexController","index");
+Router::map("GET", "/","indexController","blah");
+Router::map("GET","/store/{id}/","indexController","index");
+
+
+
+Router::map("GET","/deal/{id}/","dealController","deal");

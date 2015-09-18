@@ -1,0 +1,9 @@
+{
+    "event": "suiteStart",
+    "suite": "OptimusTest",
+    "tests": 1
+}{
+    "event": "testStart",
+    "suite": "OptimusTest",
+    "test": "OptimusTest::testCheckFileExists"
+}

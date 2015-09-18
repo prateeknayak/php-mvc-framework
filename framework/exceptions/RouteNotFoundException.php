@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: prateek
@@ -6,6 +7,8 @@
  * Time: 6:42 PM
  */
 
-class LPRouteNotFoundException extends \Exception {
+namespace Lp\Framework\Exceptions;
+
+class RouteNotFoundException extends \Exception {
 
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Lp\Framework\Core;
+namespace Lp\Framework\Core\Request;
 use Lp\Framework\Exceptions\EmptyInputArrayException;
-use Lp\Framework\Core\CoreFunctions as CF;
+use Lp\Framework\Core\CoreUtils as CF;
 /**
  * Created by PhpStorm.
  * User: prateek

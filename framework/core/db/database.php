@@ -1,18 +1,13 @@
 <?php
-namespace Healthand\Framework\Controller;
+namespace Lp\Framework\Core\Db;
 
 use \PDO as PDO;
 use \PDOException as PDOException;
-use \HTMLPurifier_Config as HTMLPurifier_Config;
-use \HTMLPurifier as HTMLPurifier;
-use Healthand\Framework\Controller\DbSingleton as DB;
-use Healthand\Application\Lib\userAuditDetails as userDetails;
-use Healthand\Framework\Exceptions\DbException as dbe;
 
-
-class Database {
+class Database
+{
 	
-	private $pdo;
+	private $con;
 	private $sQuery;
 	private $settings;
 	private $bConnected = false;
@@ -45,8 +40,7 @@ class Database {
 		// public function CloseConnection(){
 		// 	$this->pdo = null;
 		// }
-		
-	
+
 	private function Init($query, $parameters = "")
 	{
 		$config 			= HTMLPurifier_Config::createDefault();

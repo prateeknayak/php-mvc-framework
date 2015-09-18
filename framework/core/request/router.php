@@ -6,10 +6,8 @@
  * Time: 7:35 PM
  */
 
-namespace Lp\Framework\Core;
-use LP\Framework\Core\Request as R;
-use LP\Framework\Core\FookatLogger as Logger;
-use LP\Framework\Exceptions\LPRouteNotFoundException as RNFE;
+namespace Lp\Framework\Core\Request;
+
 
 class Router
 {
@@ -20,12 +18,13 @@ class Router
      * path: array(c, a)
      * @var array
      */
-    public static $routes =array();
+    private static $routes =array();
     private function __construct(){}
     private function __clone(){}
 
     public static function map($verb, $route, $controller, $action)
     {
+        $action = strtolower($verb).ucfirst($action);
         $path = compact("controller", "action");
         $explodedRoute = self::explodeRoute($route);
         $keyLen = count($explodedRoute);
@@ -41,11 +40,9 @@ class Router
         self::$routes[] = compact("verb", "keyLen", "explodedRoute", "route", "path", "params", "segmentsToMatch");
     }
 
-    public static function reduce($optional = null)
+    public static function reduce($requestMethod, $requestURI, $optional = null)
     {
-        $requestURI = R::whereYouWantToGo();
         $explodedURI = self::explodeRoute($requestURI);
-        $requestMethod = R::howYouWantToGo();
         $matchFound = false;
         $matchedIndex= null;
         foreach(self::$routes as $key => $route) {
@@ -68,14 +65,12 @@ class Router
         if ($matchFound && !is_null($matchedIndex)) {
             return self::$routes[$matchedIndex];
         } else {
-//            Logger::fkError(__CLASS__, )
-            throw new RNFE('I guess we need sherlocks in here. Where you trying to go mate?');
+            throw new \RouteNotFoundException('I guess we need sherlocks in here. Where you trying to go mate?');
         }
     }
     private static function explodeRoute($route)
     {
         return explode("/", ltrim(rtrim($route, "/"), "/"));
-
     }
 
 }
