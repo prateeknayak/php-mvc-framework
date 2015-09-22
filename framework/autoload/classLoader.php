@@ -51,10 +51,8 @@ class ClassLoader
             }
             $fullFileName = $this->iFileExists($camelCaseDir, $fileName);
             if (!is_null($fullFileName)) {
-                var_dump($fullFileName);
                 require_once($fullFileName);
             } else {
-                var_dump($fullFileName);
                 throw new \Exception("File Not found");
             }
         } else {

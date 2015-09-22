@@ -4,13 +4,15 @@ namespace Lp\Framework\Core;
 
 /**
  * Created by PhpStorm.
- * User: prateek
+ * User: Prateek Nayak
  * Date: 19/08/15
  * Time: 7:28 PM
  */
+use Lp\Application\Controllers\IndexController;
 use Lp\Framework\Base\BaseFunctions;
-use Lp\Framework\Core\Request\Router;
 use Lp\Framework\Core\Request\Request;
+use Lp\Framework\Core\Request\Router;
+use Lp\Framework\Core\Store\StoreKeeper;
 use Lp\Framework\Exceptions\DuplicateFileNameException;
 use Lp\Framework\Exceptions\RouteNotFoundException;
 
@@ -18,11 +20,11 @@ class Optimus
 {
     use BaseFunctions;
 
-
-    public function __construct(){}
-
-
+    const DEFAULT_ACTION = "getIndex";
     /**
+     * Heart of the application.
+     * Optimus takes you through application as per url.
+     *
      * @throws \LP\Framework\Exceptions\RouteNotFoundException
      * @throws \Lp\Framework\Exceptions\DuplicateFileNameException
      */
@@ -30,26 +32,20 @@ class Optimus
     {
         try {
             $goto = Router::reduce(Request::howYouWantToGo(),  Request::whereYouWantToGo());
-            if ($fileInfo = $this->checkFileExists($goto['path']['controller'])) {
-                call_user_func_array(array( new $fileInfo['fullFileName'], $goto['path']['action']),
-                    array(array_values($goto['params'])));
+            $classArray = array();
+            if ($controller = StoreKeeper::getFromStore(StoreKeeper::STORE_TYPE_CONTROLLER, $goto['path']['controller'])) {
+                $classArray = array($controller, $goto['path']['action']);
+            } elseif (empty($classArray)) {
+                $classArray = array(new IndexController(), self::DEFAULT_ACTION);
             }
+
+            call_user_func_array($classArray, $goto['params']);
         } catch(RouteNotFoundException $rnfe) {
-
+            var_dump($rnfe);
         } catch(DuplicateFileNameException $dfne) {
-
+            var_dump($dfne);
         } catch(\Exception $e) {
-
+            var_dump($e);
         }
-    }
-
-    private function __clone(){}
-
-    /**
-     *  Cleaning when destructing
-     */
-    public function __destruct()
-    {
-        self::$fileStore = null;
     }
 }

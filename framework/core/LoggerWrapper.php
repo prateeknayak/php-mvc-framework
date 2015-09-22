@@ -8,51 +8,66 @@
 
 namespace Lp\Framework\Core;
 
-use \Monolog\Logger;
-use \Monolog\Handler\StreamHandler;
-use \Monolog\Handler\FirePHPHandler;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\FirePHPHandler;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 
+/**
+ * Class LoggerWrapper
+ * @package Lp\Framework\Core
+ */
 class LoggerWrapper
 {
-    const LOG_PATH ="/var/app/fookat/";
-
-    private function __construct(){}
-    private function __clone(){}
-
+    /**
+     * Path to generate log files.
+     * Should be owned by www-data
+     */
+    const LOG_PATH ="/var/app/log/";
+    /**
+     * Prefix to all the log files.
+     */
+    const FILE_PREFIX = "api_";
+    /**
+     * instance of self.
+     * @var self
+     */
     private static $logger;
 
+    /**
+     * Singleton pattern cemented.
+     */
+    private function __construct(){}
+
+    /**
+     * @return LoggerWrapper
+     */
+    public static function getInstance()
+    {
+        if (!(self::$logger instanceof self)) {
+            self::$logger = new self();
+        }
+        return self::$logger;
+    }
+
+    /**
+     * Singleton pattern cemented.
+     */
+    private function __clone(){}
+
+    /**
+     * Initialise logger for channel and file.
+     * @param $channel
+     * @param $file
+     * @param int $level
+     * @return Logger
+     */
     private function init($channel,$file, $level= Logger::DEBUG)
     {
         $logger = new Logger($channel);
-        $logger->pushHandler(new StreamHandler(LOG_PATH.$file, $level));
+        $logger->pushHandler((new StreamHandler(self::LOG_PATH.$file, $level))->setFormatter(new LineFormatter(null, null, true, true)));
         $logger->pushHandler(new FirePHPHandler());
         return $logger;
-    }
-
-    public static function fkDebug($channel)
-    {
-        $logger = self::init($channel, "fk_debug.log");
-//        $logger->
-    }
-
-    public static function fkError()
-    {
-        self::init();
-    }
-
-    public static function fkInfo()
-    {
-        self::init();
-    }
-
-    public static function fkWarn()
-    {
-        self::init();
-    }
-
-    public static function fkCustomLogger()
-    {
-        self::init();
     }
 }

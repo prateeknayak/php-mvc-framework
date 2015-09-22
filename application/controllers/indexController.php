@@ -10,8 +10,6 @@ namespace Lp\Application\Controllers;
 
 
 use Lp\Framework\Base\baseController;
-use Lp\Framework\Core\Request\Request;
-use Lp\Framework\Core\Request\Router;
 
 class IndexController extends BaseController
 {
@@ -22,7 +20,7 @@ class IndexController extends BaseController
 
     public function getBlah()
     {
-        echo json_encode(array("msg"=>"blah blah blah"));
+       $this->response(array("msg"=>"blah blah blah"), 2020, "success ho gao");
     }
 
     public function getDeal($id)

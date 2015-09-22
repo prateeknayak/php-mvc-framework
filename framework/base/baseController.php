@@ -9,8 +9,9 @@
 namespace Lp\Framework\Base;
 
 use Lp\Framework\Core\Response;
+use Lp\Framework\Core\Response\Dispatcher;
+use Lp\Framework\Core\Store\StoreKeeper;
 use Lp\Framework\Exceptions\DuplicateFileNameException;
-use Lp\Framework\Core\Response\JSONResponse;
 
 /**
  * Abstract base controller which has basic methods
@@ -26,29 +27,39 @@ abstract class BaseController
     /**
      * Generic response function for all controllers.
      * usage: $this->response(array());
+     *
      * @param array $payload
+     * @param $status
+     * @param $msg
+     * @param int $type
+     * @throws \Exception
      */
-    protected function response(Array $payload)
+    protected function response(array $payload, $status, $msg, $type = Dispatcher::JSON_RESPONSE)
     {
-//        (new JSONResponse())->sendResponse(Response::JSON_RESPONSE, $payload);
+        if (empty($payload)) {
+            throw new \Exception("What are we trying to do here ?? Sending empty payload ?");
+        }
+
+        if (empty($status)) {
+            throw new \Exception("Missing status from response");
+        }
+
+        if (empty($msg)) {
+            $msg = "We hate you hence no message for you.";
+        }
+        try {
+            Dispatcher::getInstance()->sendResponse($payload, $status, $msg, $type);
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
 
     protected function loadModel($model, $param = array())
     {
-        $model = $this->cast("BaseModel", $this->load($model, Store::STORE_TYPE_MODEL));
+        $model = $this->cast("BaseModel", $this->load($model, StoreKeeper::STORE_TYPE_MODEL));
         $model->init($param);
         return $model;
-    }
-
-
-    protected function loadLibrary($library, $param = array())
-    {
-        $library = $this->load($library, Store::STORE_TYPE_LIBRARY);
-        if(!empty($param) && method_exists($library, "init")) {
-            $library->init($param);
-        }
-        return $library;
     }
 
     /**
@@ -61,17 +72,24 @@ abstract class BaseController
     {
         $object = null;
         try {
-            $object = Store::getFromStore($storeType, $name);
-            if (!$object) {
-                $fileInfo = $this->checkFileExists($name, $storeType);
-                $object = new $fileInfo['fullFileName'];
-            }
+            $object = StoreKeeper::getFromStore($storeType, $name);
         } catch(DuplicateFileNameException $dfne) {
             throw new \Exception("File not found $dfne");
+        } catch (\Exception $e) {
+            throw $e;
         }
-        if (is_null($object) || !($object instanceof \stdClass)) {
+        if (is_null($object) || !($object instanceof BaseModel)) {
             throw new \Exception("Class {$name} not found");
         }
         return $object;
+    }
+
+    protected function loadLibrary($library, $param = array())
+    {
+        $library = $this->load($library, StoreKeeper::STORE_TYPE_LIBRARY);
+        if(!empty($param) && method_exists($library, "init")) {
+            $library->init($param);
+        }
+        return $library;
     }
 }

@@ -14,7 +14,6 @@ class dealController extends BaseController
 {
     public function getDeal()
     {
-        echo DB_PASS;
         $this->loadModel("dealModel");
     }
 

@@ -1,24 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: prateek
- * Date: 6/09/15
- * Time: 1:53 PM
- */
 
 namespace Lp\Framework\Core\Response;
 
-
+/**
+ * Class StatusCodes helper class which has
+ * status codes and messages.
+ *
+ * @author stackOverflow | Prateek Nayak <foookat_prateek@gmail.com>
+ * @package Lp\Framework\Core\Response
+ */
 class StatusCodes
 {
     // [Informational 1xx]
-
-
     const HTTP_CONTINUE = 100;
     const HTTP_SWITCHING_PROTOCOLS = 101;
+
+
     // [Successful 2xx]
-
-
     const HTTP_OK = 200;
     const HTTP_CREATED = 201;
     const HTTP_ACCEPTED = 202;
@@ -26,9 +24,9 @@ class StatusCodes
     const HTTP_NO_CONTENT = 204;
     const HTTP_RESET_CONTENT = 205;
     const HTTP_PARTIAL_CONTENT = 206;
+
+
     // [Redirection 3xx]
-
-
     const HTTP_MULTIPLE_CHOICES = 300;
     const HTTP_MOVED_PERMANENTLY = 301;
     const HTTP_FOUND = 302;
@@ -37,9 +35,9 @@ class StatusCodes
     const HTTP_USE_PROXY = 305;
     const HTTP_UNUSED= 306;
     const HTTP_TEMPORARY_REDIRECT = 307;
+
+
     // [Client Error 4xx]
-
-
     const errorCodesBeginAt = 400;
     const HTTP_BAD_REQUEST = 400;
     const HTTP_UNAUTHORIZED  = 401;
@@ -59,9 +57,9 @@ class StatusCodes
     const HTTP_UNSUPPORTED_MEDIA_TYPE = 415;
     const HTTP_REQUESTED_RANGE_NOT_SATISFIABLE = 416;
     const HTTP_EXPECTATION_FAILED = 417;
+
+
     // [Server Error 5xx]
-
-
     const HTTP_INTERNAL_SERVER_ERROR = 500;
     const HTTP_NOT_IMPLEMENTED = 501;
     const HTTP_BAD_GATEWAY = 502;
