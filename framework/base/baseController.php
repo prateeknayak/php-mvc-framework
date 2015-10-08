@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: prateek
- * Date: 20/08/15
- * Time: 8:29 PM
- */
-
 namespace Lp\Framework\Base;
 
 use Lp\Framework\Core\Response;
@@ -18,6 +11,7 @@ use Lp\Framework\Exceptions\DuplicateFileNameException;
  * for all the application controllers.
  *
  * Class BaseController
+ * @author Prateek Nayak <prateek.1708@gmail.com>
  * @package Lp\Framework\Base
  */
 abstract class BaseController
@@ -55,6 +49,15 @@ abstract class BaseController
     }
 
 
+    /**
+     * Method called from controllers to load a specific model file.
+     * All models to be placed in application/models dir.
+     *
+     * @param mixed $model name of the model to load
+     * @param array $param any init params to pass.
+     * @return BaseModel $model model object.
+     * @throws \Exception
+     */
     protected function loadModel($model, $param = array())
     {
         $model = $this->cast("BaseModel", $this->load($model, StoreKeeper::STORE_TYPE_MODEL));
@@ -63,9 +66,28 @@ abstract class BaseController
     }
 
     /**
-     * @param null $name
-     * @param $storeType
+     * Method called from controllers to load a library.
+     * All libraries should be placed in application/library dir.
+     * @param $library
+     * @param array $param
      * @return bool
+     * @throws \Exception
+     */
+    protected function loadLibrary($library, $param = array())
+    {
+        $library = $this->load($library, StoreKeeper::STORE_TYPE_LIBRARY);
+        if(!empty($param) && method_exists($library, "init")) {
+            $library->init($param);
+        }
+        return $library;
+    }
+
+    /**
+     * Common load function.
+     *
+     * @param null $name name of the class to load.
+     * @param int $storeType type of class store.
+     * @return null|\stdClass $object
      * @throws \Exception
      */
     private function load($name = null, $storeType)
@@ -82,14 +104,5 @@ abstract class BaseController
             throw new \Exception("Class {$name} not found");
         }
         return $object;
-    }
-
-    protected function loadLibrary($library, $param = array())
-    {
-        $library = $this->load($library, StoreKeeper::STORE_TYPE_LIBRARY);
-        if(!empty($param) && method_exists($library, "init")) {
-            $library->init($param);
-        }
-        return $library;
     }
 }

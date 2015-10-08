@@ -13,7 +13,11 @@
 
 include dirname(__DIR__)."/framework/bootstrap.php";
 (new ClassLoader(BASE_PATH))->register();
+
+$var = (new \Lp\Framework\Core\Db\DBLayer())->select("SELECT * FROM test_table_1");
+var_dump($var);
+
+
 Lp\Framework\Core\Request\Request::cleanTheGlobals();
-var_dump( APPLICATION_PATH."routes/routes.php");
 include APPLICATION_PATH."routes/routes.php";
 (new Lp\Framework\Core\Optimus())->letsRoll();

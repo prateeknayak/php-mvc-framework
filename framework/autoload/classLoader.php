@@ -1,9 +1,29 @@
 <?php
 
+/**
+ * This class translates the namespace into
+ * file path.
+ * Class ClassLoader
+ * @author Prateek Nayak
+ * @package Framework
+ */
 class ClassLoader
 {
+    /**
+     * File extension
+     * @var string
+     */
     private $_fileExtension = '.php';
+
+    /**
+     * Path to the root folder.
+     * @var null|string
+     */
     private $_basePath;
+
+    /**
+     * @var string
+     */
     private $_namespaceSeparator = '\\';
 
     /**

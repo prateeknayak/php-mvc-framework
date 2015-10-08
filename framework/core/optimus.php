@@ -15,12 +15,20 @@ use Lp\Framework\Core\Request\Router;
 use Lp\Framework\Core\Store\StoreKeeper;
 use Lp\Framework\Exceptions\DuplicateFileNameException;
 use Lp\Framework\Exceptions\RouteNotFoundException;
+use Monolog\Logger;
 
 class Optimus
 {
     use BaseFunctions;
 
     const DEFAULT_ACTION = "getIndex";
+
+    private static $LOGGER;
+
+    public function __construct()
+    {
+        self::$LOGGER = LoggerWrapper::getInstance()->init(__CLASS__, Logger::DEBUG);
+    }
     /**
      * Heart of the application.
      * Optimus takes you through application as per url.
@@ -41,6 +49,7 @@ class Optimus
 
             call_user_func_array($classArray, $goto['params']);
         } catch(RouteNotFoundException $rnfe) {
+
             var_dump($rnfe);
         } catch(DuplicateFileNameException $dfne) {
             var_dump($dfne);

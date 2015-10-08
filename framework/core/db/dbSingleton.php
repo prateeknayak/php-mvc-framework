@@ -5,6 +5,13 @@ use Lp\Framework\Exceptions\MaxConnectionReached;
 use \PDO as PDO;
 use \PDOException as PDOException;
 
+/**
+ * Singleton which creates a connection pool and
+ * provides connection objects.
+ *
+ * Class DbSingleton
+ * @package Lp\Framework\Core\Db
+ */
 class DbSingleton
 {
     /**
@@ -15,7 +22,13 @@ class DbSingleton
     /**
      * Cp maintained through one request cycle
      */
-    private static $connectionPool = array();
+    private $connectionPool = array();
+
+    /**
+     * Static single instance of the class
+     * @var self.
+     */
+    private static $_instance;
 
     /**
      * Obtain connection from pool if not empty
@@ -26,18 +39,16 @@ class DbSingleton
      * @throws \Exception
      */
 
-    public static function getConnectionFromPool()
+    public function getConnectionFromPool()
     {
-        foreach(self::$connectionPool as $index => $conn) {
-            if (self::checkConnection($conn)) {
-                echo "from pool";
+        foreach($this->connectionPool as $index => $conn) {
+            if ($this->checkConnection($conn)) {
                 return $conn;
             }
         }
-        if (count(self::$connectionPool) < self::MAX_POOL_SIZE ) {
-            self::init(DB_HOST, DB_USER, DB_PASS, DB_CMS);
-            echo "from start";
-            return self::getConnectionFromPool();
+        if (count($this->connectionPool) < self::MAX_POOL_SIZE ) {
+            $this->init(DB_HOST, DB_USER, DB_PASS, DB_CMS);
+            return $this->getConnectionFromPool();
         } else {
             throw new MaxConnectionReached("Unable to create new connection");
         }
@@ -49,7 +60,7 @@ class DbSingleton
      * @return mixed status
      *
      */
-    private static function checkConnection($connection)
+    private function checkConnection($connection)
     {
         return $connection->getAttribute(PDO::ATTR_CONNECTION_STATUS);
     }
@@ -64,7 +75,7 @@ class DbSingleton
      * @param bool|false $emulate
      * @throws \Exception
      */
-    private static function init($host, $username, $password, $dbName, $emulate = false) 
+    private function init($host, $username, $password, $dbName, $emulate = false)
     {
         try {
             $instance = null;
@@ -82,6 +93,14 @@ class DbSingleton
 			throw new \Exception('Connection error: ' . $e->getMessage());
 		}
 
-        self::$connectionPool[] = $instance;
+        $this->connectionPool[] = $instance;
+    }
+
+    public function getInstance()
+    {
+        if (null == self::$_instance || !(self::$_instance instanceof self)) {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
     }
 }

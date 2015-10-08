@@ -1,13 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: prateek
- * Date: 5/09/15
- * Time: 7:30 PM
- */
+
 namespace Lp\Framework\Base;
 
 
+/**
+ * Functions to be used in base controller or base model class.
+ * In general these are functions which help application
+ * but are part of framework.
+ *
+ * Class BaseFunctions
+ * @package Lp\Framework\Base
+ */
 trait BaseFunctions
 {
     /**
