@@ -31,7 +31,8 @@ class DBLayer implements DBContract
     {
         if (null == $this->connection || !($this->connection instanceof Connection)) {
             try {
-                $this->connection = DbSingleton::getConnectionFromPool();
+
+                $this->connection = DbSingleton::getInstance()->getConnectionFromPool();
             } catch (\Exception $e) {
                 throw $e;
             }

@@ -4,29 +4,44 @@ namespace Lp\Framework\Core\Request;
 use Lp\Framework\Exceptions\EmptyInputArrayException;
 use Lp\Framework\Core\CoreUtils as CF;
 /**
- * Created by PhpStorm.
- * User: prateek
- * Date: 19/08/15
- * Time: 7:33 PM
+ * Class to parse all the requests received by our framework
+ *
+ * @author Prateek Nayak <prateek.1708@gmail.com>
+ * @package Framework\Core\Request
  */
 
 class Request
 {
-
+    /**
+     * Collection of input variables.
+     * @var array
+     */
     private static $inputArray = array();
     private function __construct(){}
     private function __clone(){}
 
+    /**
+     * Static function which can be called through out the application
+     * to access input variables.
+     *
+     * @param null $key name of the input var passed to app
+     * @return array|mixed return entire array if key is null or return specific value
+     * @throws EmptyInputArrayException
+     */
     public static function get($key = null)
     {
         if (count(self::$inputArray)< 1) {
             throw new EmptyInputArrayException("The global arrays are empty please verify");
-        } elseif (is_null($key) || $key === "") {
+        } elseif (is_null($key) || "" === $key) {
             return self::$inputArray;
-        } else if( (count(self::$inputArray) > 0) && isset(self::$inputArray[$key]) ) {
+        } else if((count(self::$inputArray) > 0) && isset(self::$inputArray[$key]) ) {
             return self::$inputArray[$key];
         }
     }
+
+    /**
+     * Creates inputArray after sanitising globals
+     */
     public static function cleanTheGlobals()
     {
         $filterGlobal = function($filter = INPUT_GET) {
@@ -53,18 +68,33 @@ class Request
 
         $destroyGlobals();
     }
-    // public static function parseJSONInput()
-    // {
-    //    self::$dirtyInput = json_decode(file_get_contents('php://input'),TRUE);
-    // } 
 
-        public static function whereYouWantToGo()
-        {
-            return cf::purify($_SERVER['REQUEST_URI']);
-        }
-
-        public static function howYouWantToGo()
-        {
-            return $_SERVER['REQUEST_METHOD'];
-        }
+    /**
+     * inputCan also be supplied as pure json.;
+     */
+    public static function parseJSONInput()
+    {
+        //TODO: implement Json as associative array extractor.
+        //self::$dirtyInput = json_decode(file_get_contents('php://input'),TRUE);
     }
+
+    /**
+     * Return the URI requested.
+     * Apparently that is where the request wants to go.
+     *
+     * @return mixed
+     */
+    public static function whereYouWantToGo()
+    {
+        return cf::purify($_SERVER['REQUEST_URI']);
+    }
+
+    /**
+     * Mode of transport for the request
+     * @return mixed
+     */
+    public static function howYouWantToGo()
+    {
+        return $_SERVER['REQUEST_METHOD'];
+    }
+}

@@ -96,7 +96,7 @@ class DbSingleton
         $this->connectionPool[] = $instance;
     }
 
-    public function getInstance()
+    public static function getInstance()
     {
         if (null == self::$_instance || !(self::$_instance instanceof self)) {
             self::$_instance = new self();

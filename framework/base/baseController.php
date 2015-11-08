@@ -61,7 +61,7 @@ abstract class BaseController
     protected function loadModel($model, $param = array())
     {
         /** @var BaseModel $model */
-        $model = $this->cast("BaseModel", $this->load($model, StoreKeeper::STORE_TYPE_MODEL));
+        $this->load($model, StoreKeeper::STORE_TYPE_MODEL);
         $model->init($param);
         return $model;
     }
