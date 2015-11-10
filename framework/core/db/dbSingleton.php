@@ -1,15 +1,15 @@
 <?php
 namespace Lp\Framework\Core\Db;
 
+use Lp\Framework\Core\Db\Mysql\MysqlConnection;
 use Lp\Framework\Exceptions\MaxConnectionReached;
-use \PDO as PDO;
-use \PDOException as PDOException;
 
 /**
  * Singleton which creates a connection pool and
  * provides connection objects.
  *
  * Class DbSingleton
+ * @author Prateek Nayak <prateek.1708@gmail.com>
  * @package Lp\Framework\Core\Db
  */
 class DbSingleton
@@ -47,7 +47,7 @@ class DbSingleton
             }
         }
         if (count($this->connectionPool) < self::MAX_POOL_SIZE ) {
-            $this->init(DB_HOST, DB_USER, DB_PASS, DB_CMS);
+            $this->init();
             return $this->getConnectionFromPool();
         } else {
             throw new MaxConnectionReached("Unable to create new connection");
@@ -55,7 +55,7 @@ class DbSingleton
     }
 
     /**
-     *  Checks the status of the connection.
+     * Checks the status of the connection.
      * @param $connection object to verify
      * @return mixed status
      *
@@ -67,35 +67,17 @@ class DbSingleton
 
     /**
      * Initialise connection to database.
-     *
-     * @param $host
-     * @param $username
-     * @param $password
-     * @param $dbName
-     * @param bool|false $emulate
-     * @throws \Exception
+     * Supports only mysql for now.
      */
-    private function init($host, $username, $password, $dbName, $emulate = false)
+    private function init()
     {
-        try {
-            $instance = null;
-            $hostArray = explode(":", $host);
-			$dsn = 'mysql:dbname='.$dbName.';host='.$hostArray[0].'';
-			if( (count($hostArray) > 1) && isset($hostArray[1]) && $hostArray[1] != ""){
-				$dsn .= ';port='.$hostArray[1].'';
-			}
-		    $instance = new PDO($dsn, $username, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-		    $instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		    $instance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-		    $instance->setAttribute(PDO::ATTR_EMULATE_PREPARES, $emulate);
-
-		} catch (PDOException $e) {
-			throw new \Exception('Connection error: ' . $e->getMessage());
-		}
-
-        $this->connectionPool[] = $instance;
+        $this->connectionPool[] = (new MysqlConnection(DB_HOST, DB_USER, DB_PASS, DB_CMS))->getInstance();
     }
 
+    /**
+     * Standard get instance for singleton class.
+     * @return DbSingleton
+     */
     public static function getInstance()
     {
         if (null == self::$_instance || !(self::$_instance instanceof self)) {

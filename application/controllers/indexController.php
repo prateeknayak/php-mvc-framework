@@ -20,7 +20,7 @@ class IndexController extends BaseController
 
     public function getBlah()
     {
-       $this->response(array("msg"=>"blah blah blah"), 2020, "success ho gao");
+       $this->response(array("msg"=>"blah blah blah"), 2020, "success");
     }
 
     public function getDeal($id)

@@ -4,8 +4,8 @@
  * This class translates the namespace into
  * file path.
  * Class ClassLoader
- * @author Prateek Nayak
- * @package Framework
+ * @author Prateek Nayak <prateek.1708@gmail.com>
+ * @package Framework\AutoloadS
  */
 class ClassLoader
 {

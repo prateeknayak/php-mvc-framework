@@ -7,7 +7,8 @@ namespace Lp\Framework\Core\Db;
  * need to implement this interface.
  *
  * Interface DBContract
- * @package Lp\Framework\Core\Db
+ * @author Prateek Nayak <prateek.1708@gmail.com>
+ * @package Framework\Core\Db
  */
 Interface DBContract
 {

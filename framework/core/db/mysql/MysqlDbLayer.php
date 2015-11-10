@@ -1,17 +1,19 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: prateek
- * Date: 16/09/15
- * Time: 8:22 PM
+ * Mysql db layer with common CRUD operations
+ *
+ * @author Prateek Nayak <prateek.1708@gmail.com>
+ * @package Framework\Core\Db\Mysql
+ *
  */
+
 
 namespace Lp\Framework\Core\Db;
 
 use \PDO as Connection;
 use \PDOStatement as Statement;
 
-class DBLayer implements DBContract
+class MysqlDBLayer implements DBContract
 {
     /**
      * Connection object
@@ -31,7 +33,6 @@ class DBLayer implements DBContract
     {
         if (null == $this->connection || !($this->connection instanceof Connection)) {
             try {
-
                 $this->connection = DbSingleton::getInstance()->getConnectionFromPool();
             } catch (\Exception $e) {
                 throw $e;
