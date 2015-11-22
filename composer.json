@@ -1,6 +1,6 @@
 {
-    "name": "foookat/lp",
-    "description": "Dependecy manager for Foookat backend.",
+    "name": "PHP Mvc Framework",
+    "description": "A light weight, albeit power full framework for a robust backend / api",
     "config": {
         "vendor-dir": "vendor"
     },
