@@ -6,7 +6,7 @@
  * Time: 10:17 AM
  */
 
-namespace Lp\Framework\Core\Store;
+namespace Wbd\Framework\Core\Store;
 
 
 class LibraryStore extends StoreParent

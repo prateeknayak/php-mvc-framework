@@ -1,5 +1,5 @@
 <?php
-use Lp\Framework\Core\Request\Router as Router;
+use Wbd\Framework\Core\Request\Router as Router;
 
 Router::map("GET", "/","indexController","blah");
 Router::map("GET","/store/{id}/","indexController","index");

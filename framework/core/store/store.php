@@ -6,7 +6,7 @@
  * Time: 10:21 AM
  */
 
-namespace Lp\Framework\Core\Store;
+namespace Wbd\Framework\Core\Store;
 
 
 interface Store

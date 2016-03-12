@@ -1,6 +1,6 @@
 <?php
 
-namespace Lp\Framework\Core\Response;
+namespace Wbd\Framework\Core\Response;
 
 /**
  * Abstract Class Response parent class of all response types
@@ -43,7 +43,7 @@ abstract class Response
      * Which then can be used by child classes to create
      * response of respective types.
      *
-     * @param $payload Array to return to the caller.
+     * @param $payload array to return to the caller.
      * @param $status int success(2020) or failure(9191)
      * @param $msg mixed string literal with generic message.
      */

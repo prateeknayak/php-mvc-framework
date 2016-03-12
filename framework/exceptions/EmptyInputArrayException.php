@@ -1,6 +1,6 @@
 <?php
 
-namespace Lp\Framework\Exceptions;
+namespace Wbd\Framework\Exceptions;
 /**
  * Created by PhpStorm.
  * User: prateek

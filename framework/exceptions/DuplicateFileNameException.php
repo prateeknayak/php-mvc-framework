@@ -6,7 +6,7 @@
  * Time: 7:16 PM
  */
 
-namespace Lp\Framework\Exceptions;
+namespace Wbd\Framework\Exceptions;
 
 
 class DuplicateFileNameException extends \Exception

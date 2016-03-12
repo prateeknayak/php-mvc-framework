@@ -1,6 +1,6 @@
 <?php
 
-namespace Lp\Framework\Core;
+namespace Wbd\Framework\Core;
 
 /**
  * Created by PhpStorm.
@@ -8,13 +8,13 @@ namespace Lp\Framework\Core;
  * Date: 19/08/15
  * Time: 7:28 PM
  */
-use Lp\Application\Controllers\IndexController;
-use Lp\Framework\Base\BaseFunctions;
-use Lp\Framework\Core\Request\Request;
-use Lp\Framework\Core\Request\Router;
-use Lp\Framework\Core\Store\StoreKeeper;
-use Lp\Framework\Exceptions\DuplicateFileNameException;
-use Lp\Framework\Exceptions\RouteNotFoundException;
+use Wbd\Application\Controllers\IndexController;
+use Wbd\Framework\Base\BaseFunctions;
+use Wbd\Framework\Core\Request\Request;
+use Wbd\Framework\Core\Request\Router;
+use Wbd\Framework\Core\Store\StoreKeeper;
+use Wbd\Framework\Exceptions\DuplicateFileNameException;
+use Wbd\Framework\Exceptions\RouteNotFoundException;
 use Monolog\Logger;
 
 class Optimus

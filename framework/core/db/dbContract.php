@@ -1,6 +1,6 @@
 <?php
 
-namespace Lp\Framework\Core\Db;
+namespace Wbd\Framework\Core\Db;
 
 /**
  * Any dbLayer class which provides support to application

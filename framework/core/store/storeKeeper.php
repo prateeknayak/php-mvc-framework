@@ -6,7 +6,7 @@
  * Time: 11:41 PM
  */
 
-namespace Lp\Framework\Core\Store;
+namespace Wbd\Framework\Core\Store;
 
 
 class StoreKeeper
@@ -46,9 +46,6 @@ class StoreKeeper
                 break;
             case self::STORE_TYPE_LIBRARY:
                 return LibraryStore::getInstance();
-                break;
-            case self::STORE_TYPE_FILE;
-                return FileStore::getInstance();
                 break;
             default:
                 return false;

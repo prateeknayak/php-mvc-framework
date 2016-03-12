@@ -1,8 +1,8 @@
 <?php
 
-namespace Lp\Framework\Core\Request;
-use Lp\Framework\Exceptions\EmptyInputArrayException;
-use Lp\Framework\Core\CoreUtils as CF;
+namespace Wbd\Framework\Core\Request;
+use Wbd\Framework\Exceptions\EmptyInputArrayException;
+use Wbd\Framework\Core\CoreUtils as CF;
 /**
  * Class to parse all the requests received by our framework
  *

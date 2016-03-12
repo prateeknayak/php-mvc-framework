@@ -1,8 +1,8 @@
 <?php
-namespace Lp\Framework\Core\Db;
+namespace Wbd\Framework\Core\Db;
 
-use Lp\Framework\Core\Db\Mysql\MysqlConnection;
-use Lp\Framework\Exceptions\MaxConnectionReached;
+use Wbd\Framework\Core\Db\Mysql\MysqlConnection;
+use Wbd\Framework\Exceptions\MaxConnectionReached;
 
 /**
  * Singleton which creates a connection pool and
@@ -62,7 +62,7 @@ class DbSingleton
      */
     private function checkConnection($connection)
     {
-        return $connection->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+        return $connection->getAttribute(\PDO::ATTR_CONNECTION_STATUS);
     }
 
     /**

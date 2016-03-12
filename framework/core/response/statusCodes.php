@@ -1,6 +1,6 @@
 <?php
 
-namespace Lp\Framework\Core\Response;
+namespace Wbd\Framework\Core\Response;
 
 /**
  * Class StatusCodes helper class which has

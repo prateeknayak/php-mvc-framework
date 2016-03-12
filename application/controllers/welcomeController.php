@@ -6,10 +6,10 @@
  * Time: 8:21 PM
  */
 
-namespace Lp\Application\Controllers;
+namespace Wbd\Application\Controllers;
 
 
-use Lp\Framework\Base\BaseController;
+use Wbd\Framework\Base\BaseController;
 
 class WelcomeController extends BaseController
 {

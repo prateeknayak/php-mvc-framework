@@ -8,7 +8,7 @@
  */
 
 
-namespace Lp\Framework\Core\Db;
+namespace Wbd\Framework\Core\Db;
 
 use \PDO as Connection;
 use \PDOStatement as Statement;

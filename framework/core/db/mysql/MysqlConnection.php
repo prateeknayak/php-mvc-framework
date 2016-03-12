@@ -7,7 +7,7 @@
  *
  */
 
-namespace Lp\Framework\Core\Db\Mysql;
+namespace Wbd\Framework\Core\Db\Mysql;
 
 use \PDO as PDO;
 use \PDOException as PDOException;
