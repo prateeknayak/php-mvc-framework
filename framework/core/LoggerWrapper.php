@@ -6,7 +6,7 @@
  * Time: 6:55 PM
  */
 
-namespace Lp\Framework\Core;
+namespace Wbd\Framework\Core;
 
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\FirePHPHandler;

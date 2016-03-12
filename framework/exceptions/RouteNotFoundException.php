@@ -7,7 +7,7 @@
  * Time: 6:42 PM
  */
 
-namespace Lp\Framework\Exceptions;
+namespace Wbd\Framework\Exceptions;
 
 class RouteNotFoundException extends \Exception {
 

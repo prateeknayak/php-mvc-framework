@@ -1,6 +1,6 @@
 <?php
 
-namespace Lp\Framework\Base;
+namespace Wbd\Framework\Base;
 
 
 /**

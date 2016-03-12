@@ -6,7 +6,7 @@
  * Time: 8:30 PM
  */
 
-namespace Lp\Framework\Core;
+namespace Wbd\Framework\Core;
 
 
 class coreUtils

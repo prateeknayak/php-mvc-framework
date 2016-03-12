@@ -1,5 +1,6 @@
 <?php
-namespace Lp\Framework\Core\Request;
+namespace Wbd\Framework\Core\Request;
+use Wbd\Framework\Exceptions\RouteNotFoundException;
 
 /**
  * This is the brain of Optimus, where the path to complete a request is deciphered
@@ -34,39 +35,50 @@ class Router
     private function __clone(){}
 
     /**
-     * So we called it map reduce. It is not the implementation of map reduce algorithn.
+     * So we called it map reduce. It is not the implementation of map reduce algorithm.
      * But that is what we are calling it EOS.
      *
      * Map is where we map possible routes to Controllers and Functions.
      *
-     * @param $verb Request Method
-     * @param $route Request URI
+     * @param $verb String Request Method
+     * @param $route String request URI
      * @param $controller String name of controller which responds to the request
      * @param $action String name of the functino which performs the action
      */
     public static function map($verb, $route, $controller, $action)
     {
-        $action = strtolower($verb).ucfirst($action);
+        // concat verb and action to create method name like get . List = getList
+        $action = strtolower($verb) . ucfirst($action);
+
+        // build the path array from controller and action
         $path = compact("controller", "action");
+
+        // explode the route to create segments
         $explodedRoute = self::explodeRoute($route);
+
+        // count the size of exploded route
         $keyLen = count($explodedRoute);
+
         $params = array();
         $segmentsToMatch =array();
-        foreach ($explodedRoute as $key=> $part) {
+
+        foreach ($explodedRoute as $key => $part) {
             if (preg_match_all(self::ROUTE_REGEX_TO_MATCH, $part, $matches)) {
-               $params[] = array(self::PARAMS_KEY_POSITION=>$key, self::PARAMS_KEY_PARAM=>$matches[1][0]);
+               $params[] = array(self::PARAMS_KEY_POSITION => $key, self::PARAMS_KEY_PARAM => $matches[1][0]);
             } else {
                 $segmentsToMatch[] = $key;
             }
         }
-        self::$routes[] = compact(  self::ROUTES_KEY_VERB,
-                                    self::ROUTES_KEY_KEY_LEN,
-                                    self::ROUTES_KEY_EXPLODED_ROUTE,
-                                    self::ROUTES_KEY_ROUTE,
-                                    self::ROUTES_KEY_PATH,
-                                    self::ROUTES_KEY_PARAMS,
-                                    self::ROUTES_KEY_SEGMENTS_TO_MATCH
-                            );
+
+        self::$routes[] = compact(
+            self::ROUTES_KEY_VERB,
+            self::ROUTES_KEY_KEY_LEN,
+            self::ROUTES_KEY_EXPLODED_ROUTE,
+            self::ROUTES_KEY_ROUTE,
+            self::ROUTES_KEY_PATH,
+            self::ROUTES_KEY_PARAMS,
+            self::ROUTES_KEY_SEGMENTS_TO_MATCH
+        );
     }
 
     /**
@@ -77,13 +89,17 @@ class Router
      * @param $requestURI String URI requested
      * @param null $optional
      * @return mixed
-     * @throws \RouteNotFoundException
+     * @throws RouteNotFoundException
      */
     public static function reduce($requestMethod, $requestURI, $optional = null)
     {
+        // explode the requested URI to decipher controller and action.
         $explodedURI = self::explodeRoute($requestURI);
+
         $matchFound = false;
         $matchedIndex= null;
+
+        // loop through all the routes and try to find controller and action
         foreach(self::$routes as $key => $route) {
             if ($requestMethod === $route[self::ROUTES_KEY_VERB] && count($explodedURI) === $route[self::ROUTES_KEY_KEY_LEN]) {
                 $numberOfSegmentsToMatch = count($route[self::ROUTES_KEY_SEGMENTS_TO_MATCH]);
@@ -94,7 +110,7 @@ class Router
                        --$numberOfSegmentsToMatch;
                    }
                 }
-                if($numberOfSegmentsToMatch==0) {
+                if(0 === $numberOfSegmentsToMatch) {
                     $matchFound = true;
                     $matchedIndex = $key;
                     break;
@@ -104,7 +120,7 @@ class Router
         if ($matchFound && !is_null($matchedIndex)) {
             return self::$routes[$matchedIndex];
         } else {
-            throw new \RouteNotFoundException('I guess we need sherlock in here. Where you trying to go mate?');
+            throw new RouteNotFoundException('I guess we need sherlock in here. Where you trying to go mate?');
         }
     }
 

@@ -6,7 +6,7 @@
  * Time: 10:16 AM
  */
 
-namespace Lp\Framework\Core\Store;
+namespace Wbd\Framework\Core\Store;
 
 
 class ModelStore extends StoreParent

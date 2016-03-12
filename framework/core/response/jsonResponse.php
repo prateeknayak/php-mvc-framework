@@ -6,7 +6,7 @@
  * Time: 1:44 PM
  */
 
-namespace Lp\Framework\Core\Response;
+namespace Wbd\Framework\Core\Response;
 
 /**
  * Class JsonResponse returns the response as json
@@ -18,7 +18,7 @@ class JsonResponse extends Response
 {
     /**
      * Let the parent create the object to be used.
-     * @param Array $payload refer parent
+     * @param array $payload refer parent
      * @param int $status refer parent
      * @param mixed $msg refer parent
      */

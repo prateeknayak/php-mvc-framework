@@ -1,10 +1,10 @@
 <?php
-namespace Lp\Framework\Base;
+namespace Wbd\Framework\Base;
 
-use Lp\Framework\Core\Response;
-use Lp\Framework\Core\Response\Dispatcher;
-use Lp\Framework\Core\Store\StoreKeeper;
-use Lp\Framework\Exceptions\DuplicateFileNameException;
+use Wbd\Framework\Core\Response;
+use Wbd\Framework\Core\Response\Dispatcher;
+use Wbd\Framework\Core\Store\StoreKeeper;
+use Wbd\Framework\Exceptions\DuplicateFileNameException;
 
 /**
  * Abstract base controller which has basic methods

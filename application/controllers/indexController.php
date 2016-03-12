@@ -6,10 +6,10 @@
  * Time: 10:18 PM
  */
 
-namespace Lp\Application\Controllers;
+namespace Wbd\Application\Controllers;
 
 
-use Lp\Framework\Base\baseController;
+use Wbd\Framework\Base\baseController;
 
 class IndexController extends BaseController
 {

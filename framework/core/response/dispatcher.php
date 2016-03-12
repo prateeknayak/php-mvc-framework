@@ -1,6 +1,6 @@
 <?php
 
-namespace Lp\Framework\Core\Response;
+namespace Wbd\Framework\Core\Response;
 
 /**
  * Class Dispatcher used to dispatch response depending
@@ -102,7 +102,7 @@ class Dispatcher
 
     /**
      * Validates the given parameters for constructor.
-     * @param $payload Array and non empty
+     * @param $payload array and non empty
      * @param $status int
      * @param $msg mixed
      * @return bool weather all params are valid or not

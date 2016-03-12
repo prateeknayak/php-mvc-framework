@@ -6,7 +6,7 @@
  * Time: 7:57 PM
  */
 
-namespace Lp\Framework\Exceptions;
+namespace Wbd\Framework\Exceptions;
 
 
 class MaxConnectionReached extends \Exception

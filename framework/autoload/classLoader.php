@@ -89,11 +89,12 @@ class ClassLoader
      */
     private function iFileExists($dir, $fileName)
     {
+        $return = null;
         if (file_exists($dir.$fileName)) {
-           return $dir.$fileName;
+            $return = $dir.$fileName;
         } elseif (file_exists($dir.lcfirst($fileName))) {
-           return $dir.lcfirst($fileName);
+            $return = $dir.lcfirst($fileName);
         }
-        return null;
+        return $return;
     }
 }

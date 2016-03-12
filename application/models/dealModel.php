@@ -6,10 +6,10 @@
  * Time: 11:51 AM
  */
 
-namespace Lp\Application\Models;
+namespace Wbd\Application\Models;
 
 
-use Lp\Framework\Base\BaseModel;
+use Wbd\Framework\Base\BaseModel;
 
 class DealModel extends BaseModel
 {

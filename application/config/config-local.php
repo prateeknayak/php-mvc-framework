@@ -9,7 +9,7 @@
 |
 */
 $uri ="/";
-$proto 				= "http" . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "") . "://";
+$proto 			= "http" . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "") . "://";
 $baseURL 		= $proto .$_SERVER['SERVER_NAME'].$uri;
 
 /*

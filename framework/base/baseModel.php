@@ -6,7 +6,7 @@
  * Time: 8:29 PM
  */
 
-namespace Lp\Framework\Base;
+namespace Wbd\Framework\Base;
 
 
 abstract class BaseModel

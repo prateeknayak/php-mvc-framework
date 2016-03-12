@@ -6,9 +6,9 @@
  * Time: 8:22 PM
  */
 
-namespace Lp\Framework\Core\Store;
+namespace Wbd\Framework\Core\Store;
 
-use Lp\Framework\Exceptions\DuplicateFileNameException;
+use Wbd\Framework\Exceptions\DuplicateFileNameException;
 
 abstract class StoreParent implements Store
 {
